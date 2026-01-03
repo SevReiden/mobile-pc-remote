@@ -1,63 +1,60 @@
-# 📱 Remote Mouse & Keyboard Control
+# 📱 mobile-pc-remote
 
-Ein einfacher, aber mächtiger Python-Server, der dein Smartphone in eine Fernbedienung für deinen PC verwandelt. Steuere Maus und wichtige Tasten bequem über das lokale Netzwerk.
+A lightweight but powerful Python server that turns your smartphone into a fully featured remote control for your PC with **live screen sharing**. Control your mouse, keyboard, and media playback comfortably from your local network.
 
 ## ✨ Features
 
-*   **🖱️ Touchpad:** Steuere den Mauszeiger deines PCs präzise über ein Touch-Feld auf deinem Smartphone-Display.
-*   **👆 Klicks:** Linksklick und Rechtsklick Buttons.
-*   **⌨️ Shortcuts:**
-    *   **Space:** Praktisch für YouTube/Netflix (Play/Pause).
-    *   **Discord Mute:** Globaler Shortcut (`^`), um dich in Discord schnell stummzuschalten.
-*   **⚡ Performance:** Optimiert für geringe Latenz im lokalen Netzwerk.
-*   **📱 Responsive & App-like:** Fühlt sich auf dem Handy fast wie eine native App an.
+*   **� Live Screen Sharing:** View your PC's screen directly on your phone in real-time.
+*   **🖱️ Smart Touchpad:** 
+    *   Responsive mouse control with low latency.
+    *   **Tap-to-Click:** Tap once for a left click.
+    *   **Auto Monitor Switch:** Automatically captures the monitor where your cursor is located.
+    *   **Fullscreen Mode:** Immersive control overlay.
+*   **🎮 Controls:**
+    *   Left and Right clicks.
+    *   **Discord Mute:** Dedicated button for quick mute (`^` key).
+*   **⚡ Performance:** Optimized `mss` screen capture for high frame rates and low lag.
+*   **📱 App-like Experience:** Responsive web interface that works on any smartphone browser.
 
-## 🛠️ Voraussetzungen
+## 🛠️ Requirements
 
-Du benötigst Python installiert auf deinem PC.
+*   Python 3.x installed on your PC.
+*   A smartphone connected to the same Wi-Fi/Local Network.
 
-Die folgenden Python-Bibliotheken werden benötigt:
-*   `Flask` (Webserver)
-*   `pyautogui` (Maus-/Tastatursteuerung)
+## 🚀 Installation
 
-##  🚀 Installation
-
-1.  **Repository klonen** (oder Dateien herunterladen):
+1.  **Clone the Repository:**
     ```bash
-    git clone <DEIN-REPO-URL>
-    cd Board
+    git clone https://github.com/YOUR_USERNAME/mobile-pc-remote.git
+    cd mobile-pc-remote
     ```
 
-2.  **Abhängigkeiten installieren:**
-    Am besten in einer virtuellen Umgebung:
+2.  **Install Dependencies:**
     ```bash
-    pip install flask pyautogui
+    pip install flask pyautogui mss pillow
     ```
 
-## 🎮 Benutzung
+## 🎮 Usage
 
-1.  **Server starten:**
+1.  **Start the Server:**
     ```bash
     python server.py
     ```
-    *(Stelle sicher, dass du dich im richtigen Verzeichnis befindest)*
 
-2.  **IP-Adresse finden:**
-    Das Skript zeigt dir beim Start normalerweise an, unter welcher IP es läuft (z.B. `http://192.168.2.35:5000`).
-    Falls nicht, finde deine lokale IP-Adresse heraus (`ipconfig` auf Windows).
+2.  **Connect:**
+    *   The script logs the IP address (e.g., `http://192.168.x.x:5000`).
+    *   Open this address in your smartphone's web browser.
 
-3.  **Verbinden:**
-    Öffne den Browser auf deinem Smartphone und gib die Adresse ein:
-    `http://<IP-DEINES-PCS>:5000`
+3.  **Enjoy:**
+    *   Use the grey area as a trackpad.
+    *   Tap the **"📺 Bildschirm An/Aus"** button to toggle the live screen view.
 
-    💡 **Wichtig:** Dein PC und dein Smartphone müssen im **gleichen WLAN/Netzwerk** sein.
+## ⚠️ Security Note
 
-## ⚠️ Sicherheitshinweis
+This tool exposes a control server on your local network.
+*   **ONLY** use this in trusted networks (Home Wi-Fi).
+*   **NEVER** use this in public networks (Universities, Cafés, Airports) without extra security layers (VPN/Tunnel).
 
-Dieses Tool öffnet einen Server in deinem lokalen Netzwerk, der Kontrolle über Maus und Tastatur erlaubt.
-*   Benutze es **nur in vertrauenswürdigen Netzwerken** (dein Zuhause).
-*   Benutze es **niemals** in öffentlichen WLANs (Uni, Café, Flughafen).
+## 📝 License
 
-## 📝 Lizenz
-
-Feel free to use and modify!
+Feel free to use and modify for your personal projects!

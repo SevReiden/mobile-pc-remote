@@ -224,8 +224,41 @@ def index():
             let lastX = 0;
             let lastY = 0;
             let isTracking = false;
+            
+            // Puffer für flüssigere Bewegung
+            let moveBufferX = 0;
+            let moveBufferY = 0;
             let isBusy = false; 
             
+            // Sendet gesammelte Bewegung alle 30ms (ca. 30 FPS)
+            setInterval(() => {
+                if ((moveBufferX !== 0 || moveBufferY !== 0) && !isBusy) {
+                    isBusy = true;
+                    // Werte kopieren und Puffer sofort leeren
+                    const sendX = Math.round(moveBufferX);
+                    const sendY = Math.round(moveBufferY);
+                    moveBufferX = 0;
+                    moveBufferY = 0;
+
+                    // Nur senden wenn wirklich Bewegung da war (nach Rundung)
+                    if (sendX === 0 && sendY === 0) {
+                        isBusy = false;
+                        return;
+                    }
+
+                    fetch(`/move?x=${sendX}&y=${sendY}`, { method: 'POST' })
+                        .then(() => {
+                            // Erfolg
+                        })
+                        .catch(err => {
+                            console.error(err);
+                        })
+                        .finally(() => { 
+                            isBusy = false; 
+                        });
+                }
+            }, 30);
+
             // Für Tap-Detection
             let startX = 0;
             let startY = 0;
@@ -268,6 +301,9 @@ def index():
             touchpad.addEventListener('touchmove', (e) => {
                 if (!isTracking) return;
                 
+                // Verhindert Scrollen/Zoom Verhalten
+                if (e.cancelable) e.preventDefault();
+
                 const currentX = e.touches[0].clientX;
                 const currentY = e.touches[0].clientY;
                 
@@ -280,15 +316,13 @@ def index():
                     hasMoved = true;
                 }
                 
+                // Bewegung in den Puffer addieren statt sofort zu senden
+                moveBufferX += deltaX;
+                moveBufferY += deltaY;
+                
                 lastX = currentX;
                 lastY = currentY;
-
-                if ((Math.abs(deltaX) > 0 || Math.abs(deltaY) > 0) && !isBusy) {
-                    isBusy = true;
-                    fetch(`/move?x=${Math.round(deltaX)}&y=${Math.round(deltaY)}`, { method: 'POST' })
-                        .finally(() => { isBusy = false; });
-                }
-            });
+            }, { passive: false });
             
             document.addEventListener('touchmove', function(event) {
                 if (event.scale !== 1) { event.preventDefault(); }

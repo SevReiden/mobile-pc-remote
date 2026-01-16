@@ -25,7 +25,7 @@ A lightweight but powerful Python server that turns your smartphone into a fully
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/YOUR_USERNAME/mobile-pc-remote.git
+    git clone https://github.com/SevReiden/mobile-pc-remote.git
     cd mobile-pc-remote
     ```
 
